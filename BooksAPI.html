@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Google Books API</h1>
+    <UL id ="books"> </UL>
+
+    <script>
+        var key = 'AIzaSyDznZE_7kcvpqeShqGSAmKcqnfqnILxohI'; 
+        var search = 'Robert Greene';
+        var url = 'https://www.googleapis.com/books/v1/volumes?q=' + search; 
+    
+        var httpRequest = new XMLHttpRequest(); 
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                var data = JSON.parse(httpRequest.responseText);
+                console.log(data);
+    
+                var books = document.getElementById("books");
+                for (var i = 0; i < data.items.length; i++) {
+                    var title = data.items[i].volumeInfo.title;
+                    console.log(title);
+    
+                    var newBook = "<li>" + title + "</li>";
+                    books.innerHTML += newBook;
+                }
+            }
+        };
+    
+        httpRequest.open("GET", url);
+        httpRequest.send(); 
+    </script>
+    
+    </script>
+</body>   
+</html>
